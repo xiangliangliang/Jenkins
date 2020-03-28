@@ -59,11 +59,46 @@ println onlines
 println offlines
 
 简化
-offs = slaves.findAll{it.getComputer().getOfflineCause().toString().contains('Disconnected by')}.collect{[it.name,it.getComputer().getOfflineCause().toString()]}
+def offs = slaves.findAll{it.getComputer().getOfflineCause().toString().contains('Disconnected by')}.collect{[it.name,it.getComputer().getOfflineCause().toString()]}
 println offs
-ons = slaves.findAll{it.getComputer().isOnline() == true}.collect{it.name}
+def ons = slaves.findAll{it.getComputer().isOnline() == true}.collect{it.name}
 println ons
 ```
+
+
+
+    stage('nodes_to_be_on_line') {
+    steps {
+        script{ 
+            //@NonCPS
+            def slaves = hudson.model.Hudson.instance.slaves
+            def offs = slaves.findAll{it.getComputer().getOfflineCause().toString().contains('Disconnected by')}
+            println offs
+            if(offs.size() > 0){offs.each{println it.name+ ' : '+it.getComputer().getOfflineCause().toString()}}
+            else{println 'no nodes to be on lines'}
+            }
+        }
+    }
+    
+    stage('nodes_to_be_off_line') {
+        steps {
+        script{ 
+            //@NonCPS
+            def slaves = hudson.model.Hudson.instance.slaves
+            def ons = slaves.findAll{it.getComputer().isOnline() == true}
+            println ons
+            if(ons.size() > 0){
+                ons.each{
+                println it.name
+                it.getComputer().setTemporarilyOffline(true,'from off_line stage')
+                }
+            }
+            else{ println "No nodes to be on_line"}
+            }
+    
+        }
+    }
+
 
 #### 节点属性
 
