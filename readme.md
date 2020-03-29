@@ -69,41 +69,35 @@ println ons
 
 
 
-    stage('nodes_to_be_on_line') {
-    steps {
-        script{ 
-            //@NonCPS
-            def slaves = hudson.model.Hudson.instance.slaves
-            def offs = slaves.findAll{it.getComputer().getOfflineCause().toString().contains('Disconnected by')}
-            println offs
-            if(offs.size() > 0){offs.each{println it.name+ ' : '+it.getComputer().getOfflineCause().toString()}}
-            else{println 'no nodes to be on lines'}
-            }
-        }
+```groovy
+《============================================》
+只能做筛选，不能用于pipeline中，因为会引起序列化错误。
+在pipeline中一定要使用for(slave in slaves){}结构。
+《============================================》
+
+def slaves = hudson.model.Hudson.instance.slaves
+def offs = slaves.findAll{it.getComputer().getOfflineCause().toString().contains('Disconnected by')}
+        println offs
+        if(offs.size() > 0){offs.each{println it.name+ ' : '+it.getComputer().getOfflineCause().toString()}}
+        else{println 'no nodes to be on lines'}
+
+
+def slaves = hudson.model.Hudson.instance.slaves
+def ons = slaves.findAll{it.getComputer().isOnline() == true}
+println ons
+if(ons.size() > 0){
+    ons.each{
+        println it.name
+        //it.getComputer().setTemporarilyOffline(true,'from off_line stage') 该指令无效
+        it.getComputer().doDoDisconnect('temp offline') 
+        /*
+        彻底断链，但是可以用it.getComputer().cliOnline()上线，缺点是，没有message
+        */
     }
-    
-    stage('nodes_to_be_off_line') {
-        steps {
-        script{ 
-            //@NonCPS
-            def slaves = hudson.model.Hudson.instance.slaves
-            def ons = slaves.findAll{it.getComputer().isOnline() == true}
-            println ons
-            if(ons.size() > 0){
-                ons.each{
-                println it.name
-                //it.getComputer().setTemporarilyOffline(true,'from off_line stage') 该指令无效
-                it.getComputer().doDoDisconnect('temp offline') 
-                /*
-                彻底断链，但是可以用it.getComputer().cliOnline()上线，缺点是，没有message
-                */
-                }
-            }
-            else{ println "No nodes to be on_line"}
-            }
-    
-        }
-    }
+}
+else{ println "No nodes to be on_line"}
+
+```
 
 
 #### 节点属性
@@ -178,6 +172,6 @@ it.getComputer().cliOnline()
 #### 节点下线
 
 ```groovy
-it.getComputer().doDoDisconnect('temp offline')
+it.getComputer().doDoDisconnect('temp offline') // 这个是下线，不是临时下线，offlineCause没有显示
 ```
 
