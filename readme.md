@@ -92,7 +92,11 @@ println ons
             if(ons.size() > 0){
                 ons.each{
                 println it.name
-                it.getComputer().setTemporarilyOffline(true,'from off_line stage')
+                //it.getComputer().setTemporarilyOffline(true,'from off_line stage') 该指令无效
+                it.getComputer().doDoDisconnect('temp offline') 
+                /*
+                彻底断链，但是可以用it.getComputer().cliOnline()上线，缺点是，没有message
+                */
                 }
             }
             else{ println "No nodes to be on_line"}
