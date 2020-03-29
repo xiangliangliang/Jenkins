@@ -32,6 +32,24 @@ def request(slaves):
 
 
 
+#### import一堆
+
+```groovy
+import jenkins.model.Jenkins
+import hudson.model.User
+import hudson.security.Permission
+import hudson.EnvVars
+import hudson.model.*
+import jenkins.*
+import jenkins.model.*
+import hudson.*
+import hudson.model.*
+```
+
+.model.*
+
+
+
 #### 节点offlineCauseReason
 
 * http://localhost:9000/computer/123/api/json?pretty=true&tree=offlineCauseReason
