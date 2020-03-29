@@ -59,9 +59,11 @@ println onlines
 println offlines
 
 简化
-def offs = slaves.findAll{it.getComputer().getOfflineCause().toString().contains('Disconnected by')}.collect{[it.name,it.getComputer().getOfflineCause().toString()]}
+def offs = slaves.findAll{it.getComputer().getOfflineCause().toString().contains('Disconnected by')}
+def offs_names = offs.collect{[it.name,it.getComputer().getOfflineCause().toString()]}
 println offs
-def ons = slaves.findAll{it.getComputer().isOnline() == true}.collect{it.name}
+def ons = slaves.findAll{it.getComputer().isOnline() == true}
+def ons_names = ons.collect{it.name}
 println ons
 ```
 
