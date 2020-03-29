@@ -140,6 +140,8 @@ http://www.voidcn.com/article/p-mkxeljmv-nh.html
 
 #### 节点ip
 
+通过master，远程控制slave
+
 ```groovy
 import hudson.util.RemotingDiagnostics;
 
@@ -156,3 +158,20 @@ for (slave in hudson.model.Hudson.instance.slaves) {
     println RemotingDiagnostics.executeGroovy(uname, slave.getChannel());
 }
 ```
+
+
+
+#### 节点上线
+
+```groovy
+it.getComputer().cliOnline()
+```
+
+
+
+#### 节点下线
+
+```groovy
+it.getComputer().doDoDisconnect('temp offline')
+```
+
