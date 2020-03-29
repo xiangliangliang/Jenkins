@@ -189,6 +189,7 @@ it.getComputer().cliOnline()
 ```groovy
 it.getComputer().doDoDisconnect('temp offline') // 这个是下线，不是临时下线，offlineCause没有显示
 it.getComputer().disconnect()
+it.getComputer().setTemporarilyOffline(true,'from off_line stage') //offlineCause没有显示,还会出错，原因没找到，只能用 null代替
 ```
 
 
