@@ -135,3 +135,24 @@ for (aSlave in hudson.model.Hudson.instance.slaves) {
 #### jenkins Python api
 
 http://www.voidcn.com/article/p-mkxeljmv-nh.html
+
+
+
+#### 节点ip
+
+```groovy
+import hudson.util.RemotingDiagnostics;
+
+print_ip = 'println InetAddress.localHost.hostAddress';
+print_hostname = 'println InetAddress.localHost.canonicalHostName';
+
+// here it is - the shell command, uname as example 
+uname = 'def proc = "uname -a".execute(); proc.waitFor(); println proc.in.text';
+
+for (slave in hudson.model.Hudson.instance.slaves) {
+    println slave.name;
+    println RemotingDiagnostics.executeGroovy(print_ip, slave.getChannel());
+    println RemotingDiagnostics.executeGroovy(print_hostname, slave.getChannel());
+    println RemotingDiagnostics.executeGroovy(uname, slave.getChannel());
+}
+```
