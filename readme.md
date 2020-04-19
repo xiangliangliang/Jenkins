@@ -176,10 +176,15 @@ for (slave in hudson.model.Hudson.instance.slaves) {
 
 简易方法：
 for (aSlave in hudson.model.Hudson.instance.slaves) {
+
 	println('====================');
+	
 	println('Name: ' + aSlave.name);
+	
 	println('computer.getLog: ' + aSlave.getComputer().getLog().split('\n').toList()[0].split("/")[-2].split(' ')[-1])
+	
 }
+
 
 
 #### 节点上线
