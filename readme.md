@@ -175,6 +175,7 @@ for (slave in hudson.model.Hudson.instance.slaves) {
 ```
 
 简易方法：
+
 for (aSlave in hudson.model.Hudson.instance.slaves) {
 
 	println('====================');
