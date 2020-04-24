@@ -128,20 +128,20 @@ for (aSlave in hudson.model.Hudson.instance.slaves) {
 	println('getRootPath: ' + aSlave.getRootPath());
 	println('getDescriptor: ' + aSlave.getDescriptor());
 	println('getComputer: ' + aSlave.getComputer());
-	println('	computer.isAcceptingTasks: ' + aSlave.getComputer().isAcceptingTasks());
-	println('	computer.isLaunchSupported: ' + aSlave.getComputer().isLaunchSupported());
-	println('	computer.getConnectTime: ' + aSlave.getComputer().getConnectTime());
-	println('	computer.getDemandStartMilliseconds: ' + 	aSlave.getComputer().getDemandStartMilliseconds());
-	println('	computer.isOffline: ' + aSlave.getComputer().isOffline());
-	println('	computer.offlineCause: ' + aSlave.getComputer().getOfflineCause());
-	println('	computer.countBusy: ' + aSlave.getComputer().countBusy());
+	println('computer.isAcceptingTasks: ' + aSlave.getComputer().isAcceptingTasks());
+	println('computer.isLaunchSupported: ' + aSlave.getComputer().isLaunchSupported());
+	println('computer.getConnectTime: ' + aSlave.getComputer().getConnectTime());
+	println('computer.getDemandStartMilliseconds: ' + 	aSlave.getComputer().getDemandStartMilliseconds());
+	println('computer.isOffline: ' + aSlave.getComputer().isOffline());
+	println('computer.offlineCause: ' + aSlave.getComputer().getOfflineCause());
+	println('computer.countBusy: ' + aSlave.getComputer().countBusy());
+	println('computer.getLog: ' + aSlave.getComputer().getLog());
+	println('computer.getBuilds: ' + aSlave.getComputer().getBuilds());
 	if (aSlave.name == 'NAME OF NODE TO DELETE') {
-	  println('Shutting down node!!!!');
-	  aSlave.getComputer().setTemporarilyOffline(true,null);
-	  aSlave.getComputer().doDoDelete();
-	}
-	println('	computer.getLog: ' + aSlave.getComputer().getLog());
-	println('	computer.getBuilds: ' + aSlave.getComputer().getBuilds());
+		println('Shutting down node!!!!');
+		aSlave.getComputer().setTemporarilyOffline(true,null);
+		aSlave.getComputer().doDoDelete();
+		}
 	}
 ```
 
