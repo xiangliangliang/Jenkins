@@ -216,3 +216,63 @@ echo ？？？？ > secret-file
 java -jar agent.jar -jnlpUrl http://localhost:9000/computer/456/slave-agent.jnlp -secret @secret-file -workDir "E:\？？？\？？？？"
 ```
 
+#### ssh 
+
+https://github.com/jenkinsci/ssh-steps-plugin
+
+ssh 发送命令
+
+node {
+
+  def remote = [:]
+  
+  remote.name = 'test'
+  
+  remote.host = 'test.domain.com'
+  
+  remote.user = 'root'
+  
+  remote.password = 'password'
+  
+  remote.allowAnyHosts = true
+  
+  stage('Remote SSH') {
+  
+    sshCommand remote: remote, command: "ls -lrt"
+    
+    sshCommand remote: remote, command: "for i in {1..5}; do echo -n \"Loop \$i \"; date ; sleep 1; done"
+    
+  }
+  
+}
+
+
+执行脚本
+
+node {
+
+  def remote = [:]
+  
+  remote.name = 'test'
+  
+  remote.host = 'test.domain.com'
+  
+  remote.user = 'root'
+  
+  remote.password = 'password'
+  
+  remote.allowAnyHosts = true
+  
+  stage('Remote SSH') {
+  
+    writeFile file: 'abc.sh', text: 'ls -lrt'
+    
+    sshScript remote: remote, script: "abc.sh"
+    
+  }
+  
+}
+
+
+
+
