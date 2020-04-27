@@ -1,0 +1,26 @@
+node('master'){
+	stage('scm'){
+		checkout([$class: 'GitSCM', branches: [[name: '**']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'github_test', url: 'git@github.com:xiangliangliang/Jenkins.git']]])
+		pipeline = load 'log_parse.groovy'
+	}
+}
+
+pipeline {
+	agent none
+	stages {
+		stage('start') {
+			steps {
+				script{
+					pipeline.log_parse_1()
+				}
+			}
+			post{
+				always{
+					script{
+						pipeline.log_parse()
+						}
+					}
+				}
+			}
+		}
+	}
